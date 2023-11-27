@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora de CPF</title>
+    <script>
+        function CalcularCPF(CPF) {
+            const vetor1 = [10, 9, 8, 7, 6, 5, 4, 3, 2];
+            const vetor2 = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
+
+            const soma1 = CPF.split('').reduce((acc, digit, index) => acc + parseInt(digit) * vetor1[index], 0);
+            const resto1 = soma1 % 11;
+            const digito1 = resto1 < 2 ? 0 : 11 - resto1;
+            const CPF2 = CPF + digito1;
+
+            const soma2 = CPF2.split('').reduce((acc, digit, index) => acc + parseInt(digit) * vetor2[index], 0);
+            const resto2 = soma2 % 11;
+            const digito2 = resto2 < 2 ? 0 : 11 - resto2;
+            const CPFCompleto = CPF2 + digito2;
+
+            return CPFCompleto;
+        }
+
+        function calcularCPF() {
+            const CPF = document.getElementById('CPF').value;
+            
+            if (CPF.length !== 9 || !((CPF))) {
+                return;
+            }
+
+            const resultadoFim = CalcularCPF(CPF);
+            document.getElementById('resultado').innerHTML = "CPF completo: " + resultadoFim;
+        }
+    </script>
+</head>
+<body>
+    <h1>Calculadora de CPF</h1>
+    
+    <label for="CPF">Digite os nove primeiros dígitos do CPF:</label>
+    <input type="text" id="CPF" title="Por favor, insira nove dígitos numéricos." required>
+    <button onclick="calcularCPF()">Calcular CPF</button>
+
+    <p id="resultado"></p>
+</body>
+</html>
